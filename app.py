@@ -99,6 +99,7 @@ st.markdown(
   <span>Model: {SYSTEM_MODEL_NAME}</span>
   <span>AI Status: {"✅ ENABLED" if AI_ENABLED else "❌ DISABLED — Persona emulator fallback active"}</span>
   <span>{inventory_text()}</span>
+  <span style="color: #888;">Puzzle: {current_puzzle_key()} ({st.session_state.puzzle_index}/{len(ORDER)})</span>
 </div>
 """,
     unsafe_allow_html=True,
@@ -158,7 +159,8 @@ def handle_commands(cmd: str) -> bool:
 
     if low == "hint":
         # Hint for the current puzzle only (no advancement)
-        reply_user_then_bot(current_hint())
+        current_hint_text = current_hint()
+        reply_user_then_bot(current_hint_text)
         return True
 
     if low == "repeat":
@@ -221,32 +223,45 @@ if submitted and user_text.strip():
     # Not a command: treat as puzzle answer
     say_user(user_text)
 
-    # Freeze the puzzle key BEFORE validation to avoid desync
-    key_at_submit = current_puzzle_key()
-
-    # Validate against the current (frozen) puzzle
+    # Validate against the current puzzle
     is_correct = validate_answer(user_text)
     validation = "correct" if is_correct else "incorrect"
+
+    # Store the current puzzle key before potential advancement
+    previous_puzzle_key = current_puzzle_key()
 
     # Only award fragment and advance when correct
     if is_correct:
         award_fragment_and_advance()
+        
+        # Get the fragment that was just awarded
+        awarded_fragment = st.session_state.get("last_awarded_fragment", "??")
+        
+        # Add congratulation message with next puzzle
+        congrats_msg = f"Correct! Fragment [{awarded_fragment}] secured. "
+        
         # If we just completed all puzzles, enter master stage
         if current_puzzle_key() == "master":
             st.session_state.stage = "master"
+            congrats_msg += "All fragments collected! Assemble the Master Key with format: **** **** ******** ****"
+        else:
+            # Show the next puzzle automatically
+            next_puzzle = current_prompt()
+            congrats_msg += f"\n\nNext puzzle:\n{next_puzzle}"
+        
+        say_bot(congrats_msg)
+        
+    else:
+    # Incorrect answer - just mark it as incorrect
+    # The persona emulator will provide the atmospheric response
+        pass
 
-    # Compute the prompt to show after any potential advancement
+    # Route to AI/Persona for additional context
     prompt_html = current_prompt()
-
-    # Encourage concise, directive persona replies
-    st.session_state["ai_tip"] = (
-        "Be concise but helpful. Provide 1–3 sentences with a clear next step."
-    )
-
-    # Route to AI/Persona with the correct validation label and up-to-date prompt
+    st.session_state["ai_tip"] = "Be concise but helpful."
     ai_respond(user_text, validation, prompt_html)
 
-    # If the player typed the final phrase at master, end the quest
+    # Final master key check
     if current_puzzle_key() == "master" and user_text.strip().upper().replace(" ", "") == FINAL_KEY.replace(" ", ""):
         st.session_state.stage = "end"
         say_bot("Access granted. Welcome to the Neon Core.")

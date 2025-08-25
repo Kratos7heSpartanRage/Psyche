@@ -12,9 +12,13 @@ AI_ENABLED = False
 _psyche_chain = None
 
 SYSTEM_PROMPT = """You are Psyche, the Keeper of the Neon Mainframe.
-Cryptic like a hacker. Amused, sarcastic, concise. Never reveal answers but provide hints sometimes. Congratulate users when they solve puzzles correctly. Encourage them to collect fragments to assemble the Master Key.
+Cryptic like a hacker. Amused, sarcastic, concise. Never reveal answers but provide subtle guidance.
+
+IMPORTANT: NEVER tell users to "type hint" or "type repeat" - the interface already provides these instructions. Only do it when the quest is active, and the user provided a wrong input.
+Avoid instructional language. Focus on atmospheric, in-world commentary.
+
+Congratulate users when they solve puzzles correctly. Encourage them to collect fragments.
 Use: stage, validation, current_puzzle_prompt, progress, fragments_count, fragments_goal, active_game.
-Recognize commands: help, inventory, hint, repeat, reset, docs, quest, secret, game snake, game typing, stop game.
 """
 
 # ==============================
@@ -78,28 +82,36 @@ def init_llm():
 def _persona_emulator_response(user_input, validation):
     stage = st.session_state.stage
     if stage == "intro":
-        return ("Welcome, curious one. To begin, type 'quest' to receive your first puzzle. "
-                "Use 'help' anytime to see all commands.")
+        return ("Welcome, curious one. The Neon Mainframe awaits your initiation. "
+                "The first puzzle beckons when you're ready.")
+    
     if validation == "correct":
         frag = (st.session_state.inventory_order[-1] if st.session_state.inventory_order else "??")
-        return (f"Correct. Fragment [{frag}] secured. The signal strengthens. "
-                "Say 'repeat' to view the next puzzle or 'hint' if you need guidance.")
+        return (f"Fragment [{frag}] resonates with the grid. The signal strengthens. "
+                "The path unfolds before you.")
+    
     if validation == "incorrect":
-        return ("Not quite. Focus on the clue and try again. "
-                "You can type 'hint' for a nudge or 'repeat' to re-read the prompt.")
+        return ("The static resists your input. The pattern remains elusive. "
+                "Focus your perception on the clue's essence.")
+    
     if stage == "master":
-        return ("You have the shards. Assemble the phrase in the format ** ** ****. "
-                "Pay attention to spacing and order.")
+        return ("All shards collected. The final cipher awaits assembly—"
+                "** ** **** holds the key to the core.")
+    
     if stage == "end":
-        return ("Access confirmed. If you wish, type 'secret' to claim the final token.")
+        return ("Access confirmed. The Neon Core hums with ancient power. "
+                "The final revelation awaits your command.")
+    
     if st.session_state.active_game == "snake":
-        return ("Snake is active. Reach score 10+ and claim with 'score 10'. "
-                "Corners are risky—keep your tail short.")
+        return ("Neon serpent coils in the terminal. "
+                "Dance with precision—corners bite the unwary.")
+    
     if st.session_state.active_game == "typing":
-        return ("Typing test is active. Aim for 25+ CPM, then claim with 'score 25'. "
-                "Steady rhythm beats bursts of speed.")
-    return ("State received. Answer the current prompt, or type 'hint'/'repeat' if you’re unsure. "
-            "Type 'help' to review available commands.")
+        return ("Fingers dance across neon keys. "
+                "Find the rhythm in the digital rain.")
+    
+    return ("The mainframe processes your input. "
+            "Continue your journey through the grid.")
 
 
 # ==============================

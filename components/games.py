@@ -16,7 +16,7 @@ def render_snake_game():
       </head>
       <body>
         <div class="wrap">
-          <div class="title">Neon Snake — get score ≥ 10, then type: score 10</div>
+          <div class="title">Neon Snake — get score ≥ 10, then type: score X (your actual score)</div>
           <div class="bar">Arrows to move. Eat neon dots.</div>
           <canvas id="c" width="320" height="320"></canvas>
           <div class="bar" id="score">Score: 0</div>
@@ -114,7 +114,7 @@ def render_typing_game():
       </head>
       <body>
         <div class="wrap">
-          <div class="title">Typing Reflex — reach CPM ≥ 25, then type: score 25</div>
+          <div class="title">Typing Reflex — reach CPM ≥ 25, then type: score X (your actual CPM)</div>
           <div>Type the phrase below, fast. Press Enter to submit; a new phrase appears.</div>
           <div class="prompt" id="p"></div>
           <input id="i" placeholder="Start typing..." />

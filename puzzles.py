@@ -114,7 +114,8 @@ def current_prompt():
     puzzle = next(p for p in PUZZLES if p["key"] == key)
     return puzzle["prompt"]
 
-def current_hint():
+def current_hint() -> str:
+    """Return the hint for the current puzzle as a string."""
     key = current_puzzle_key()
     if key == "master":
         return "You know the phrase by now. Mind the spaces."
@@ -122,22 +123,35 @@ def current_hint():
     return puzzle["hint"]
 
 def validate_answer(user_text: str):
+    # Get the CURRENT puzzle key at validation time
     key = current_puzzle_key()
     if key == "master":
         attempt = user_text.strip().upper().replace(" ", "")
         return attempt == FINAL_KEY.replace(" ", "")
-    puzzle = next(p for p in PUZZLES if p["key"] == key)
-    return bool(puzzle["validator"](user_text))
+    
+    # Find the current puzzle
+    current_puzzle = next((p for p in PUZZLES if p["key"] == key), None)
+    if not current_puzzle:
+        return False
+    
+    return bool(current_puzzle["validator"](user_text))
 
 def award_fragment_and_advance():
     key = current_puzzle_key()
     if key == "master":
         return
+    
     frag = FRAGMENTS_MAP[key]
     if frag not in st.session_state.fragments:
         st.session_state.fragments.append(frag)
         st.session_state.inventory_order.append(frag)
+        
+        # Store the fragment we just awarded for the congratulation message
+        st.session_state.last_awarded_fragment = frag
+        
+        # Advance to next puzzle
         st.session_state.puzzle_index += 1
+    
     # Auto-close mini-game panel if leaving a game stage
     if st.session_state.active_game and key in ("snake", "typing"):
         st.session_state.active_game = None
