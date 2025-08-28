@@ -9,60 +9,67 @@
 A terminal-style puzzle adventure set in a neon-drenched cyberpunk world. Solve cryptographic challenges, play retro mini-games, and assemble the Master Key to unlock the secrets of the Neon Mainframe.
 
 ## 🌌 Terminal Initiation
+
 ### Prerequisites
+
 ```bash
 # Clone the repository
 git clone https://github.com/your-username/psyche-cyber-quest.git
 cd psyche-cyber-quest
-
+```
+```bash
 # Create virtual environment
 python -m venv neon_env
 source neon_env/bin/activate  # Linux/Mac
 # or
 neon_env\Scripts\activate    # Windows
-
+```
+```bash
 # Install dependencies
 pip install -r requirements.txt
-```
-
 # Optional: AI Integration
-For enhanced cybernetic responses, set up Groq AI:
+# For enhanced cybernetic responses, set up Groq AI:
+```
 ```bash
 # Create .env file
 echo "GROQ_API_KEY=your_api_key_here" > .env
 ```
-# Launch Sequence
+
+## Launch Sequence
 ```bash
 streamlit run app.py
 # TERMINAL ONLINE - Mainframe connection established at http://localhost:8501
 ```
 
-# 🎮 Interface Commands
-<img width="562" height="566" alt="image" src="https://github.com/user-attachments/assets/a29b72cf-8211-4c63-a98a-23af15a0a281" />
+## 🎮 Interface Commands
+### Command	Effect	Usage
 
-# 🧩 Puzzle Matrix
-Fragment Collection
-Solve 8 cryptographic puzzles to collect fragments:
+<img width="569" height="586" alt="image" src="https://github.com/user-attachments/assets/02485b9c-656a-4eae-8122-ff65c4426d8a" />
 
-1. Sound Ghost - Identify the canyon's answer
-2. Triangular Sequence - Decipher the numeric pattern
-3. Mainframe Whisper - Caesar cipher decryption
-4. Dusty Badge - Word reorganization puzzle
-5. Acrostic Cipher - Extract skyline initials
-6. Packet Payload - Base64 decoding challenge
-7. Binary Glyphs - Byte-to-ASCII translation
-8. Patch-note Prose - Commit lore terminology
 
-# Mini-Games
-Two retro challenges await:
+## 🧩 Puzzle Matrix
+### Fragment Collection
+1. Solve 8 cryptographic puzzles to collect fragments:
+2. Sound Ghost - Identify the canyon's answer
+3. Triangular Sequence - Decipher the numeric pattern
+4. Mainframe Whisper - Caesar cipher decryption
+5. Dusty Badge - Word reorganization puzzle
+6. Acrostic Cipher - Extract skyline initials
+7. Packet Payload - Base64 decoding challenge
+8. Binary Glyphs - Byte-to-ASCII translation
+9. Patch-note Prose - Commit lore terminology
+
+## Mini-Games
+### Two retro challenges await:
 
 1. Neon Snake - Score ≥ 10, then type score X (your actual score)
 2. Typing Reflex - Reach 25+ CPM, then type score X (your actual CPM)
 
-# Final Assembly
+### Final Assembly
 Collect all fragments to form: NE ON GR ID UN LO CK ED
+Assemble into Master Key
 
-# 🎯 How to Play
+## 🎯 How to Play
 1. Type quest to begin your initiation
 2. Read each puzzle carefully - cyberpunk riddles require perception
 3. Type answers directly - the mainframe validates your input
@@ -72,28 +79,68 @@ Collect all fragments to form: NE ON GR ID UN LO CK ED
 7. Assemble the Master Key
 8. Claim your reward - type secret after unlocking everything
 
-# Mini-Game Instructions
-1. Neon Snake:
-      Controls: Arrow keys to navigate
-      Objective: Eat neon dots, avoid your tail
-      Success: Score ≥ 10, then type score [your-actual-score]
-      Pro Tip: Corners are lethal - plan your route
+## 🕹️ Mini-Game Instructions
+### Neon Snake
+1. Controls: Arrow keys to navigate
+2. Objective: Eat neon dots, avoid your tail
+3. Success: Score ≥ 10, then type score [your-actual-score]
+4. Pro Tip: Corners are lethal - plan your route
 
-2. Typing Reflex:
-     Objective: Type phrases quickly and accurately
-     Success: Reach 25+ CPM, then type score [your-actual-CPM]
-     Pro Tip: Rhythm beats speed - steady pacing wins
+### Typing Reflex
+1. Objective: Type phrases quickly and accurately
+3. Success: Reach 25+ CPM, then type score [your-actual-CPM]
+3. Pro Tip: Rhythm beats speed - steady pacing wins
 
-# Technical Architecture
-psyche-cyber-quest/
-├── app.py              # Main application driver
-├── puzzles.py          # Puzzle definitions & validators
-├── llm.py             # AI/Persona response system
-├── ui.py              # Interface rendering components
-├── styles.py          # Cyberpunk CSS and themes
-├── matrix.py          # Matrix rain background effect
-├── games.py           # Mini-game implementations
-└── requirements.txt   # Dependencies
+## 🔧 Technical Architecture
 
-# 👨‍💻 Cyber-Operative
+<img width="503" height="265" alt="image" src="https://github.com/user-attachments/assets/f4afc738-41ae-46bd-a3f3-9d86ed1919fa" />
+
+## 🚀 Deployment
+### Local Development
+```bash
+streamlit run app.py
+```
+
+### Cloud Deployment
+Ready for deployment on:
+1. Streamlit Cloud
+2. Heroku (with Procfile)
+3. Railway
+4. Hugging Face Spaces
+
+## 🎲 Sample Gameplay
+
+```> quest
+🤖 Quest initiated. Solve the puzzles to assemble the Master Key.
+🤖 Signal without source. No lungs, no lips—yet the canyon answers...
+```
+
+```
+> echo
+🧑 echo
+🤖 Correct! Fragment [NE] secured.
+🤖 Next puzzle: Triangular surge (Observe the sequence): 2, 6, 12, 20, 30, __?
+```
+
+```
+> 42
+🧑 42
+🤖 Fragment [ON] resonates with the grid...
+📜 License
+MIT License - Feel free to hack the mainframe and modify as you see fit.
+```
+
+## 👨‍💻 Cyber-Operative
 Created by Mayank Kumar - Keeper of the Neon Mainframe, for the GDG Retro Project....
+
+[Demo Video link = https://youtu.be/EKkquM3WAeE]
+
+> *"The grid welcomes those who dare to solve its mysteries..."*
+
+
+
+
+
+
+
+
